@@ -14,7 +14,7 @@ data = pd.read_csv('athlete-data-with-weights.csv')
 
 # split data into features and target
 #X = data.drop(['First', 'Last', 'ID', 'Vert', 'Position', 'SLVl', 'SLVr'], axis=1)
-X = data[['BSS', 'BS', 'Clean', 'Estimated_Weight']]
+X = data[['BSS', 'BS', 'Clean', 'Estimated_Weight', 'Gender']]
 y = data['Vert']
 
 # split into training and test sets
@@ -25,7 +25,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = Ridge(alpha=1.0)
 
 # train new model using selected features
-features = ['BSS', 'BS', 'Clean', 'Estimated_Weight']
+features = ['BSS', 'BS', 'Clean', 'Estimated_Weight', 'Gender']
 
 X_train = X_train[features]
 X_test = X_test[features]
@@ -59,7 +59,7 @@ print(f'cross-val mse: {-np.mean(cv_scores)}')
 
 
 # pickle model
-feature_names = ['BSS', 'BS', 'Clean', 'Weight']
+feature_names = ['BSS', 'BS', 'Clean', 'Weight', 'Gender (0=F, 1=M)']
 with open('athlete_vert_predictor.pkl', 'wb') as f:
     pickle.dump((model, feature_names), f)
 
